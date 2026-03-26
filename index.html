@@ -74,6 +74,7 @@ main { max-width: 820px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
 .leg { display: flex; align-items: center; gap: 5px; }
 .leg-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
 
+/* Match card */
 .match-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 12px; }
 .card-meta { display: flex; align-items: center; gap: 10px; padding: 11px 16px 10px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
 .meta-day { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--hint); }
@@ -119,13 +120,27 @@ main { max-width: 820px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
 .bye-row { font-size: 11px; color: var(--hint); text-align: center; padding: 10px 0; display: flex; align-items: center; gap: 10px; }
 .bye-row::before, .bye-row::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
+/* Loading stages */
+.stage-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.8rem; margin-bottom: 12px; display: flex; align-items: center; gap: 14px; }
+.stage-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+.stage-icon.loading { background: var(--surface2); }
+.stage-icon.done { background: var(--green-bg); }
+.stage-icon.error { background: var(--red-bg); }
+.stage-text { flex: 1; }
+.stage-title { font-size: 0.875rem; font-weight: 500; }
+.stage-sub { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+.mini-spinner { width: 16px; height: 16px; border: 2px solid var(--border-med); border-top-color: var(--green); border-radius: 50%; animation: spin 0.7s linear infinite; }
+
+/* Skeleton */
 .skeleton-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 12px; padding: 16px; }
 .skel { background: var(--surface2); border-radius: 6px; animation: pulse 1.4s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
+/* Error */
 .error-box { background: var(--red-bg); border: 1px solid rgba(139,32,32,0.15); border-radius: 12px; padding: 1.2rem 1.4rem; margin-bottom: 1rem; font-size: 0.825rem; color: var(--red); line-height: 1.6; }
 .error-box strong { display: block; margin-bottom: 4px; }
 
+/* No fixtures */
 .placeholder { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 2.5rem; text-align: center; color: var(--hint); font-size: 0.875rem; line-height: 1.8; }
 .placeholder strong { display: block; font-size: 1rem; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
 
@@ -144,205 +159,52 @@ footer { text-align: center; font-size: 11px; color: var(--hint); padding: 2rem 
 <header>
   <div class="eyebrow">Super Rugby Pacific 2026</div>
   <h1>Upcoming Round <em>Predictions</em></h1>
-  <p class="subtitle">Form · Head-to-head · Venue · Weather · Injuries · Pundit consensus<br>Refresh anytime to recalculate with the latest data</p>
+  <p class="subtitle">Fixtures fetched live · AI analysis of form, H2H, venue, weather, injuries & pundits<br>Fully automatic — updates each round without any manual changes</p>
 </header>
 
 <main id="mainContent"></main>
 
 <footer>
-  Predictions are AI-generated for entertainment purposes only. Always verify latest team news before kick-off.<br>
-  Sources: ESPN, Rugby365, AusSportsBetting, Rugby.com.au, super.rugby
+  Fixtures sourced automatically from ESPN. Predictions are AI-generated for entertainment only.<br>
+  Refresh anytime for the latest analysis as team news develops.
 </footer>
 
 <script>
-// ─────────────────────────────────────────────────────────────────────────────
-// ROUNDS DATA — update this each week with new fixture details
-//
-// firstKickoff / lastKickoff use UTC time.
-// NZ Daylight Saving (Oct–Apr) = UTC+13, so e.g. 5:05pm NZDT = 04:05 UTC
-// Australian Eastern Daylight (Oct–Apr) = UTC+11, so 5:05pm AEDT = 06:05 UTC
-//
-// The app automatically shows the round whose last game hasn't finished yet.
-// ─────────────────────────────────────────────────────────────────────────────
-const ROUNDS = [
-  {
-    num: 6,
-    label: "Round 6",
-    dates: "20–21 March 2026",
-    firstKickoff: new Date("2026-03-20T06:05:00Z"),
-    lastKickoff:  new Date("2026-03-21T08:35:00Z"),
-    byes: ["Western Force"],
-    matches: [
-      {
-        day: "Friday 20 March", time: "5:05 PM AEDT",
-        home: "Highlanders", away: "Hurricanes",
-        venue: "Forsyth Barr Stadium, Dunedin", indoor: true,
-        formHome: "LWLLL", formAway: "WWWLW",
-        context: {
-          h2h: "Hurricanes on a long winning streak vs Highlanders; 8 of last 10 away Canes wins here were by 1–12 pts",
-          homeAdv: "Indoor stadium reduces home advantage; both teams comfortable on this surface",
-          weather: "Indoor — no weather impact",
-          injuries: "Home: Cam Millar injured, Reesjan Pasitoa first start at No.10, Hugh Renton returns. Away: Ruben Love first start at No.10, Rakete-Stones rested, Xavier Numia starts",
-          standingsAndForm: "Hurricanes top of table 15 pts, Highlanders struggling with 1 win from 5. Highlanders 1–9 as underdogs past 12 months",
-          pundits: "ESPN: Hurricanes by 8. AusSportsBetting: Hurricanes 1.45 fav line -6.5. Rugby365: Hurricanes. Tab: Hurricanes"
-        }
-      },
-      {
-        day: "Friday 20 March", time: "7:35 PM AEDT",
-        home: "Brumbies", away: "Chiefs",
-        venue: "GIO Stadium, Canberra", indoor: false,
-        formHome: "WWLLW", formAway: "WWWWW",
-        context: {
-          h2h: "Brumbies lost 5 straight to Chiefs but 4 were in NZ; Brumbies no 13+ home loss in last 12 months at GIO",
-          homeAdv: "Strong GIO crowd; Slipper record 203rd cap adds emotional boost; Brumbies rested players in Rd5",
-          weather: "Cool, dry Canberra autumn evening — suits a tight physical contest",
-          injuries: "Home: Rob Valetini returns at No.8 (major boost), James Slipper starts in record 203rd appearance. Away: Wallace Sititi absent, McKenzie and Jacobson lead; Chiefs failed to cover line in last 3 away games",
-          standingsAndForm: "Chiefs unbeaten top 2; Brumbies 3 wins from 5 looking to bounce back",
-          pundits: "ESPN: Brumbies by 5. AusSportsBetting: Chiefs 1.40 away fav line -5.5. Rugby365: close contest. Tab: Chiefs favoured"
-        }
-      },
-      {
-        day: "Saturday 21 March", time: "2:35 PM AEDT",
-        home: "Fijian Drua", away: "Queensland Reds",
-        venue: "Churchill Park, Lautoka", indoor: false,
-        formHome: "WLWWL", formAway: "WWLWW",
-        context: {
-          h2h: "Drua 12–3 home record in Lautoka; Reds 0–3 all-time in Fiji; Drua recorded first ever win over Brumbies last week",
-          homeAdv: "Lautoka heat and humidity heavily favours Drua; opposition fitness fades late",
-          weather: "Hot, humid tropical conditions — significantly saps visiting team energy in second half",
-          injuries: "Home: full-strength. Away: Carter Gordon, Fraser McReight and Zane Nonggorr all absent; Hunter Paisami returns to midfield",
-          standingsAndForm: "Drua riding high; Reds travelling well but missing 3 key players",
-          pundits: "ESPN: Drua by 3. AusSportsBetting: Drua 1.68 fav line -2.5. Rugby365: Drua. Tab: Drua"
-        }
-      },
-      {
-        day: "Saturday 21 March", time: "5:05 PM AEDT",
-        home: "Moana Pasifika", away: "Crusaders",
-        venue: "North Harbour Stadium, Auckland", indoor: false,
-        formHome: "LWLWL", formAway: "LWWLW",
-        context: {
-          h2h: "Crusaders historically dominant against Moana; Moana yet to beat Crusaders",
-          homeAdv: "Auckland crowd backs Moana but has never been enough against Crusaders",
-          weather: "Auckland autumn — mild, slight rain possible, manageable for both",
-          injuries: "Home: Augustine Pulu suspended 3 weeks, Julian Savea returns for first time in 2026. Away: all three specialist flyhalves injured, Cooper Grant moves to No.10; Tamaiti Williams still suspended",
-          standingsAndForm: "Crusaders mid-table; Moana struggling. Crusaders $1.01 in market — monumental favourites",
-          pundits: "ESPN: Crusaders by 12. AusSportsBetting: Crusaders $1.01 line -25.5. Rugby365: Crusaders. Tab: Crusaders"
-        }
-      },
-      {
-        day: "Saturday 21 March", time: "7:35 PM AEDT",
-        home: "NSW Waratahs", away: "Blues",
-        venue: "Allianz Stadium, Sydney", indoor: false,
-        formHome: "WLLWL", formAway: "WWWWW",
-        context: {
-          h2h: "Blues 11-game winning streak vs Waratahs including 5 straight wins in Sydney; Blues covered line in last 5 away games",
-          homeAdv: "Waratahs unbeaten at Allianz in 2026 but Blues have been clinical away",
-          weather: "Warm Sydney late-summer evening — open, attacking game expected on fast surface",
-          injuries: "Home: Joseph-Aukuso Suaalii out 8 weeks (hamstring), backline reshuffled again. Away: near full-strength, Beauden Barrett at No.10, Hoskins Sotutu and Papali'i lead pack",
-          standingsAndForm: "Blues top 3 with 4 wins from 5; Waratahs inconsistent with 2 wins from 5",
-          pundits: "ESPN: Blues by 8. AusSportsBetting: Blues 1.44 fav line -5.5. Rugby365: Blues. Tab: Blues"
-        }
-      }
-    ]
-  },
-  {
-    num: 7,
-    label: "Round 7",
-    dates: "27–29 March 2026",
-    firstKickoff: new Date("2026-03-27T07:05:00Z"),
-    lastKickoff:  new Date("2026-03-29T08:35:00Z"),
-    byes: [],
-    matches: []
-  },
-  {
-    num: 8,
-    label: "Round 8",
-    dates: "3–5 April 2026",
-    firstKickoff: new Date("2026-04-03T07:05:00Z"),
-    lastKickoff:  new Date("2026-04-05T08:35:00Z"),
-    byes: ["Brumbies", "Blues", "Highlanders", "Hurricanes", "Moana Pasifika"],
-    matches: []
-  },
-  {
-    num: 9,
-    label: "Round 9",
-    dates: "10–12 April 2026",
-    firstKickoff: new Date("2026-04-10T07:05:00Z"),
-    lastKickoff:  new Date("2026-04-12T08:35:00Z"),
-    byes: [],
-    matches: []
-  },
-  {
-    num: 10,
-    label: "Round 10",
-    dates: "17–19 April 2026",
-    firstKickoff: new Date("2026-04-17T07:05:00Z"),
-    lastKickoff:  new Date("2026-04-19T08:35:00Z"),
-    byes: [],
-    matches: []
-  }
-];
+const refreshIcon = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8A5.5 5.5 0 1 1 10 3.07"/><polyline points="10 1 10 4 13 4"/></svg>`;
 
-// ─── Auto-detect upcoming round ───────────────────────────────────────────────
-// Shows the first round whose last game + 3hr buffer hasn't passed yet.
-function getUpcomingRound() {
-  const now = new Date();
-  return ROUNDS.find(r => new Date(r.lastKickoff.getTime() + 3 * 60 * 60 * 1000) > now)
-    || ROUNDS[ROUNDS.length - 1];
+function nowNZT() {
+  return new Date().toLocaleString("en-NZ", {
+    timeZone: "Pacific/Auckland", dateStyle: "medium", timeStyle: "short"
+  });
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 function formDots(str) {
-  return (str || "").split("").slice(-5).map(c => {
+  return (str || "-----").split("").slice(-5).map(c => {
     const bg = c === "W" ? "#1c6640" : c === "L" ? "#b83232" : "#c0bdb8";
     return `<span class="form-dot" style="background:${bg}"></span>`;
   }).join("");
 }
 
-function nowNZT() {
-  return new Date().toLocaleString("en-NZ", {
-    timeZone: "Pacific/Auckland",
-    dateStyle: "medium",
-    timeStyle: "short"
-  });
+// ─── Loading stages UI ────────────────────────────────────────────────────────
+function showStages(stages) {
+  const main = document.getElementById("mainContent");
+  main.innerHTML = `
+    <div style="margin-bottom:1.5rem">
+      ${stages.map(s => `
+        <div class="stage-card">
+          <div class="stage-icon ${s.status}">
+            ${s.status === "loading" ? `<div class="mini-spinner"></div>` :
+              s.status === "done"    ? "✓" : "✗"}
+          </div>
+          <div class="stage-text">
+            <div class="stage-title">${s.title}</div>
+            ${s.sub ? `<div class="stage-sub">${s.sub}</div>` : ""}
+          </div>
+        </div>`).join("")}
+    </div>`;
 }
 
-const refreshIcon = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8A5.5 5.5 0 1 1 10 3.07"/><polyline points="10 1 10 4 13 4"/></svg>`;
-
-// ─── API call via Vercel serverless function ───────────────────────────────────
-async function fetchPredictions(round) {
-  const payload = round.matches.map((m, i) => ({
-    id: i,
-    home: m.home,
-    away: m.away,
-    venue: m.venue,
-    indoor: m.indoor || false,
-    recentFormHome: m.formHome,
-    recentFormAway: m.formAway,
-    headToHead: m.context.h2h,
-    homeAdvantage: m.context.homeAdv,
-    weatherConditions: m.context.weather,
-    injuryNews: m.context.injuries,
-    standingsAndForm: m.context.standingsAndForm,
-    punditConsensus: m.context.pundits
-  }));
-
-  const response = await fetch("/api/predict", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ matches: payload, roundNum: round.num })
-  });
-
-  if (!response.ok) {
-    const err = await response.json().catch(() => ({}));
-    throw new Error(err.error || `Server error ${response.status}`);
-  }
-
-  const data = await response.json();
-  return data.predictions;
-}
-
-// ─── Skeleton loader ──────────────────────────────────────────────────────────
+// ─── Skeleton cards ───────────────────────────────────────────────────────────
 function skeletonCards(count) {
   return Array.from({ length: count }, () => `
     <div class="skeleton-card">
@@ -371,6 +233,10 @@ function skeletonCards(count) {
 // ─── Match card ───────────────────────────────────────────────────────────────
 function matchCard(m, pred) {
   const isComfort = pred.marginCategory === "comfortable";
+  const ctx = m.context || {};
+  const punditPills = (ctx.pundits || "").split(". ").filter(Boolean)
+    .map(p => `<span class="pundit-tip">${p.trim()}</span>`).join("");
+
   return `
   <div class="match-card">
     <div class="card-meta">
@@ -392,6 +258,7 @@ function matchCard(m, pred) {
           <div class="form-dots">${formDots(m.formAway)}</div>
         </div>
       </div>
+
       <div class="pred-block ${isComfort ? "pred-comfort" : "pred-close"}">
         <span class="margin-badge ${isComfort ? "mb-comfort" : "mb-close"}">${isComfort ? "13+ pts" : "1–12 pts"}</span>
         <div class="pred-info">
@@ -399,14 +266,16 @@ function matchCard(m, pred) {
           <div class="pred-score">Predicted: ${pred.predictedScore}</div>
         </div>
       </div>
+
       <p class="analysis">${pred.analysis}</p>
+
       <div class="tags">
         ${(pred.keyFactors || []).map(f => `<span class="tag">${f}</span>`).join("")}
         ${m.indoor ? `<span class="tag tag-blue">Indoor stadium</span>` : ""}
       </div>
-      <div class="pundit-row">
-        ${(m.context.pundits || "").split(". ").filter(Boolean).map(p => `<span class="pundit-tip">${p}</span>`).join("")}
-      </div>
+
+      ${punditPills ? `<div class="pundit-row">${punditPills}</div>` : ""}
+
       <div class="conf-row">
         <span class="conf-label">Confidence</span>
         <div class="conf-track"><div class="conf-fill" style="width:${pred.confidence}%"></div></div>
@@ -419,36 +288,86 @@ function matchCard(m, pred) {
 // ─── Main render ──────────────────────────────────────────────────────────────
 async function render() {
   const main = document.getElementById("mainContent");
-  const round = getUpcomingRound();
 
-  // Fixtures not yet added for this round
-  if (!round.matches.length) {
+  // Stage 1: Fetching fixtures
+  showStages([
+    { title: "Fetching live fixtures from ESPN…", sub: "Getting upcoming Super Rugby Pacific schedule", status: "loading" }
+  ]);
+
+  let fixtureData;
+  try {
+    const resp = await fetch("/api/fixtures");
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(err.error || `Server error ${resp.status}`);
+    }
+    fixtureData = await resp.json();
+  } catch (err) {
     main.innerHTML = `
-      <div class="round-header">
-        <h2>${round.label}</h2>
-        <span class="round-dates">${round.dates}</span>
+      <div class="error-box">
+        <strong>Could not fetch fixtures</strong>
+        ${err.message}. Check your Vercel deployment and ANTHROPIC_API_KEY environment variable.
       </div>
-      <div class="placeholder">
-        <strong>Fixtures not yet added</strong>
-        Once the ${round.label} draw and team news are confirmed, update the
-        matches data in <code>index.html</code> and push to GitHub — Vercel will redeploy automatically.
-        ${round.byes.length ? `<br><br>Bye this round: ${round.byes.join(", ")}` : ""}
+      <div style="text-align:center;margin-top:1rem">
+        <button class="refresh-btn" onclick="render()">${refreshIcon} Try again</button>
       </div>`;
     return;
   }
 
-  // Show skeleton while fetching
-  main.innerHTML = `
-    <div class="round-header">
-      <h2>${round.label}</h2>
-      <span class="round-dates">${round.dates}</span>
-    </div>
-    <div class="summary-strip"><span class="stat-pill">Generating predictions…</span></div>
-    ${skeletonCards(round.matches.length)}`;
+  // No upcoming fixtures found
+  if (!fixtureData.round) {
+    main.innerHTML = `
+      <div class="placeholder">
+        <strong>No upcoming fixtures</strong>
+        ${fixtureData.message || "No Super Rugby Pacific matches found in the next 10 days."}
+        <br><br>
+        <button class="refresh-btn" onclick="render()" style="margin:0 auto">${refreshIcon} Check again</button>
+      </div>`;
+    return;
+  }
+
+  const round = fixtureData.round;
+
+  // Stage 2: Generating predictions
+  showStages([
+    { title: "Fixtures loaded", sub: `${round.matches.length} matches found for ${round.label}`, status: "done" },
+    { title: "Generating predictions…", sub: "Analysing form, H2H, injuries, conditions & pundit tips", status: "loading" }
+  ]);
+
+  // Show skeleton cards below the stages while predicting
+  main.innerHTML += skeletonCards(round.matches.length);
 
   let predictions;
   try {
-    predictions = await fetchPredictions(round);
+    const payload = round.matches.map((m, i) => ({
+      id: i,
+      home: m.home,
+      away: m.away,
+      venue: m.venue,
+      indoor: m.indoor || false,
+      recentFormHome: m.formHome,
+      recentFormAway: m.formAway,
+      headToHead: m.context?.h2h || "",
+      homeAdvantage: m.context?.homeAdv || "",
+      weatherConditions: m.context?.weather || "",
+      injuryNews: m.context?.injuries || "",
+      standingsAndForm: m.context?.standingsAndForm || "",
+      punditConsensus: m.context?.pundits || m.espnOdds || ""
+    }));
+
+    const resp = await fetch("/api/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ matches: payload, roundNum: round.label })
+    });
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(err.error || `Prediction server error ${resp.status}`);
+    }
+
+    const data = await resp.json();
+    predictions = data.predictions;
   } catch (err) {
     main.innerHTML = `
       <div class="round-header">
@@ -458,11 +377,12 @@ async function render() {
       </div>
       <div class="error-box">
         <strong>Could not generate predictions</strong>
-        ${err.message}. Make sure ANTHROPIC_API_KEY is set in your Vercel environment variables and redeploy.
+        ${err.message}
       </div>`;
     return;
   }
 
+  // ─── Render final predictions ───────────────────────────────────────────────
   const comfortCount = predictions.filter(p => p.marginCategory === "comfortable").length;
   const closeCount   = predictions.filter(p => p.marginCategory === "close").length;
 
@@ -472,7 +392,7 @@ async function render() {
       <span class="round-dates">${round.dates}</span>
       <button class="refresh-btn" id="refreshBtn">${refreshIcon} Refresh</button>
     </div>
-    <div class="generated-at">Generated ${nowNZT()} NZT — refresh anytime for updated predictions</div>
+    <div class="generated-at">Generated ${nowNZT()} NZT — fixtures and form fetched live from ESPN</div>
     <div class="summary-strip">
       <span class="stat-pill"><strong>${round.matches.length}</strong> matches</span>
       <span class="stat-pill"><strong>${comfortCount}</strong> × 13+ pt wins</span>
@@ -485,7 +405,6 @@ async function render() {
     </div>`;
 
   round.matches.forEach((m, i) => { html += matchCard(m, predictions[i] || {}); });
-  if (round.byes.length) html += `<div class="bye-row">Bye: ${round.byes.join(", ")}</div>`;
 
   main.innerHTML = html;
 
