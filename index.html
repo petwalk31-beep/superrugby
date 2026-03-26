@@ -24,8 +24,6 @@
   --orange-bg: #fdf0e6;
   --blue: #174a80;
   --blue-bg: #e8f0fb;
-  --locked-bg: #f0efe9;
-  --locked: #8a8880;
   --red-bg: #fdf0f0;
   --red: #8b2020;
 }
@@ -35,31 +33,19 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 header {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-  padding: 2rem 1.5rem 1.4rem;
+  padding: 2rem 1.5rem 1.5rem;
   text-align: center;
 }
-.eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--hint); margin-bottom: 0.35rem; }
+.eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--hint); margin-bottom: 0.4rem; }
 header h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 600; line-height: 1.2; }
 header h1 em { font-style: normal; color: var(--green); }
 .subtitle { margin-top: 0.4rem; font-size: 0.825rem; color: var(--muted); line-height: 1.5; }
-
-.week-nav {
-  display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;
-  padding: 1rem 1.5rem; background: var(--surface); border-bottom: 1px solid var(--border);
-}
-.week-btn {
-  padding: 6px 15px; border-radius: 100px; border: 1px solid var(--border-med);
-  background: transparent; font-family: 'DM Sans', sans-serif;
-  font-size: 13px; cursor: pointer; color: var(--muted); transition: all 0.15s;
-}
-.week-btn:hover { background: var(--surface2); color: var(--text); }
-.week-btn.active { background: var(--text); border-color: var(--text); color: #fff; }
 
 main { max-width: 820px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
 
 .round-header {
   display: flex; align-items: center; gap: 1rem;
-  margin-bottom: 1.2rem; padding-bottom: 0.9rem;
+  margin-bottom: 0.6rem; padding-bottom: 0.9rem;
   border-bottom: 1px solid var(--border);
 }
 .round-header h2 { font-size: 1.1rem; font-weight: 600; }
@@ -78,6 +64,8 @@ main { max-width: 820px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
 .refresh-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
 .refresh-btn.spinning svg { animation: spin 0.7s linear infinite; }
 
+.generated-at { font-size: 11px; color: var(--hint); margin-bottom: 1.2rem; }
+
 .summary-strip { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.2rem; }
 .stat-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 5px 13px; font-size: 12px; color: var(--muted); }
 .stat-pill strong { color: var(--text); font-weight: 600; }
@@ -91,7 +79,6 @@ main { max-width: 820px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
 .meta-day { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--hint); }
 .meta-time { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--hint); }
 .meta-venue { font-size: 11px; color: var(--muted); margin-left: auto; }
-
 .card-body { padding: 16px; }
 
 .teams-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; margin-bottom: 14px; }
@@ -126,35 +113,19 @@ main { max-width: 820px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
 .conf-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
 .conf-label { font-size: 11px; color: var(--hint); white-space: nowrap; }
 .conf-track { flex: 1; height: 3px; background: var(--surface2); border-radius: 3px; overflow: hidden; }
-.conf-fill { height: 100%; border-radius: 3px; background: var(--green); transition: width 0.6s ease; }
+.conf-fill { height: 100%; border-radius: 3px; background: var(--green); }
 .conf-pct { font-size: 11px; font-weight: 500; color: var(--muted); font-family: 'DM Mono', monospace; white-space: nowrap; }
-
-.generated-at { font-size: 11px; color: var(--hint); margin-bottom: 1.2rem; }
 
 .bye-row { font-size: 11px; color: var(--hint); text-align: center; padding: 10px 0; display: flex; align-items: center; gap: 10px; }
 .bye-row::before, .bye-row::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-/* Locked */
-.locked-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 12px; opacity: 0.7; }
-.locked-body { padding: 16px; }
-.locked-teams { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; }
-.locked-team { font-size: 0.9rem; font-weight: 600; color: var(--muted); }
-.locked-vs { font-size: 11px; color: var(--hint); }
-.locked-bar { background: var(--locked-bg); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; }
-.lock-icon { font-size: 15px; }
-.locked-msg { font-size: 12px; color: var(--locked); }
-.locked-msg strong { color: var(--text); font-weight: 500; }
-
-/* Loading skeleton */
 .skeleton-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 12px; padding: 16px; }
 .skel { background: var(--surface2); border-radius: 6px; animation: pulse 1.4s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-/* Error */
 .error-box { background: var(--red-bg); border: 1px solid rgba(139,32,32,0.15); border-radius: 12px; padding: 1.2rem 1.4rem; margin-bottom: 1rem; font-size: 0.825rem; color: var(--red); line-height: 1.6; }
-.error-box strong { display: block; margin-bottom: 4px; font-size: 0.875rem; }
+.error-box strong { display: block; margin-bottom: 4px; }
 
-/* Placeholder */
 .placeholder { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 2.5rem; text-align: center; color: var(--hint); font-size: 0.875rem; line-height: 1.8; }
 .placeholder strong { display: block; font-size: 1rem; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
 
@@ -172,17 +143,9 @@ footer { text-align: center; font-size: 11px; color: var(--hint); padding: 2rem 
 
 <header>
   <div class="eyebrow">Super Rugby Pacific 2026</div>
-  <h1>Match <em>Predictions</em></h1>
-  <p class="subtitle">Form · Head-to-head · Venue · Weather · Injuries · Pundit consensus<br>Predictions unlock 5 days before the first game of each round · Refresh anytime for the latest</p>
+  <h1>Upcoming Round <em>Predictions</em></h1>
+  <p class="subtitle">Form · Head-to-head · Venue · Weather · Injuries · Pundit consensus<br>Refresh anytime to recalculate with the latest data</p>
 </header>
-
-<div class="week-nav" id="weekNav">
-  <button class="week-btn active" data-week="6">Round 6</button>
-  <button class="week-btn" data-week="7">Round 7</button>
-  <button class="week-btn" data-week="8">Round 8</button>
-  <button class="week-btn" data-week="9">Round 9</button>
-  <button class="week-btn" data-week="10">Round 10</button>
-</div>
 
 <main id="mainContent"></main>
 
@@ -192,15 +155,22 @@ footer { text-align: center; font-size: 11px; color: var(--hint); padding: 2rem 
 </footer>
 
 <script>
-// ─── Round fixture data ───────────────────────────────────────────────────────
-// Add new rounds here as fixtures are announced.
-// firstKickoff is used to calculate the 5-day unlock window.
-
-const ROUNDS = {
-  6: {
+// ─────────────────────────────────────────────────────────────────────────────
+// ROUNDS DATA — update this each week with new fixture details
+//
+// firstKickoff / lastKickoff use UTC time.
+// NZ Daylight Saving (Oct–Apr) = UTC+13, so e.g. 5:05pm NZDT = 04:05 UTC
+// Australian Eastern Daylight (Oct–Apr) = UTC+11, so 5:05pm AEDT = 06:05 UTC
+//
+// The app automatically shows the round whose last game hasn't finished yet.
+// ─────────────────────────────────────────────────────────────────────────────
+const ROUNDS = [
+  {
+    num: 6,
     label: "Round 6",
     dates: "20–21 March 2026",
     firstKickoff: new Date("2026-03-20T06:05:00Z"),
+    lastKickoff:  new Date("2026-03-21T08:35:00Z"),
     byes: ["Western Force"],
     matches: [
       {
@@ -212,9 +182,9 @@ const ROUNDS = {
           h2h: "Hurricanes on a long winning streak vs Highlanders; 8 of last 10 away Canes wins here were by 1–12 pts",
           homeAdv: "Indoor stadium reduces home advantage; both teams comfortable on this surface",
           weather: "Indoor — no weather impact",
-          injuries: "Home: Cam Millar injured, Reesjan Pasitoa first start at No.10, Hugh Renton returns from injury. Away: Ruben Love first start of season at No.10, Rakete-Stones rested, Xavier Numia starts",
-          standingsAndForm: "Hurricanes top of table with 15 pts, Highlanders struggling with only 1 win from 5. Highlanders 1–9 as underdogs over past 12 months",
-          pundits: "ESPN: Hurricanes by 8. AusSportsBetting: Hurricanes 1.45 fav, line -6.5. Rugby365: Hurricanes. Tab: Hurricanes"
+          injuries: "Home: Cam Millar injured, Reesjan Pasitoa first start at No.10, Hugh Renton returns. Away: Ruben Love first start at No.10, Rakete-Stones rested, Xavier Numia starts",
+          standingsAndForm: "Hurricanes top of table 15 pts, Highlanders struggling with 1 win from 5. Highlanders 1–9 as underdogs past 12 months",
+          pundits: "ESPN: Hurricanes by 8. AusSportsBetting: Hurricanes 1.45 fav line -6.5. Rugby365: Hurricanes. Tab: Hurricanes"
         }
       },
       {
@@ -224,11 +194,11 @@ const ROUNDS = {
         formHome: "WWLLW", formAway: "WWWWW",
         context: {
           h2h: "Brumbies lost 5 straight to Chiefs but 4 were in NZ; Brumbies no 13+ home loss in last 12 months at GIO",
-          homeAdv: "Strong GIO Stadium crowd; Slipper's record 203rd cap adds emotional boost; Brumbies rested players in Rd5",
+          homeAdv: "Strong GIO crowd; Slipper record 203rd cap adds emotional boost; Brumbies rested players in Rd5",
           weather: "Cool, dry Canberra autumn evening — suits a tight physical contest",
-          injuries: "Home: Rob Valetini returns at No.8 (major boost), James Slipper starts in record 203rd appearance. Away: Wallace Sititi absent, McKenzie and Jacobson lead, Chiefs failed to cover line in last 3 away games",
-          standingsAndForm: "Chiefs unbeaten and top 2; Brumbies 3 wins from 5 and looking to bounce back after 2 losses",
-          pundits: "ESPN: Brumbies by 5. AusSportsBetting: Chiefs 1.40 away fav, line -5.5. Rugby365: close contest. Tab: Chiefs favoured"
+          injuries: "Home: Rob Valetini returns at No.8 (major boost), James Slipper starts in record 203rd appearance. Away: Wallace Sititi absent, McKenzie and Jacobson lead; Chiefs failed to cover line in last 3 away games",
+          standingsAndForm: "Chiefs unbeaten top 2; Brumbies 3 wins from 5 looking to bounce back",
+          pundits: "ESPN: Brumbies by 5. AusSportsBetting: Chiefs 1.40 away fav line -5.5. Rugby365: close contest. Tab: Chiefs favoured"
         }
       },
       {
@@ -237,12 +207,12 @@ const ROUNDS = {
         venue: "Churchill Park, Lautoka", indoor: false,
         formHome: "WLWWL", formAway: "WWLWW",
         context: {
-          h2h: "Drua 12–3 home record in Lautoka; Reds 0–3 all-time in Fiji; Drua just recorded historic first win over Brumbies",
-          homeAdv: "Lautoka heat and humidity heavily favours Drua; opposition fitness visibly fades late in games here",
-          weather: "Hot, humid tropical conditions in Lautoka — significantly saps visiting teams' energy in second half",
-          injuries: "Home: full-strength selection. Away: Carter Gordon (No.10), Fraser McReight (No.8) and Zane Nonggorr all absent; Hunter Paisami returns to midfield",
-          standingsAndForm: "Drua riding high, Reds travelling well but missing 3 key players",
-          pundits: "ESPN: Drua by 3. AusSportsBetting: Drua 1.68 fav, line -2.5. Rugby365: Drua. Tab: Drua"
+          h2h: "Drua 12–3 home record in Lautoka; Reds 0–3 all-time in Fiji; Drua recorded first ever win over Brumbies last week",
+          homeAdv: "Lautoka heat and humidity heavily favours Drua; opposition fitness fades late",
+          weather: "Hot, humid tropical conditions — significantly saps visiting team energy in second half",
+          injuries: "Home: full-strength. Away: Carter Gordon, Fraser McReight and Zane Nonggorr all absent; Hunter Paisami returns to midfield",
+          standingsAndForm: "Drua riding high; Reds travelling well but missing 3 key players",
+          pundits: "ESPN: Drua by 3. AusSportsBetting: Drua 1.68 fav line -2.5. Rugby365: Drua. Tab: Drua"
         }
       },
       {
@@ -251,12 +221,12 @@ const ROUNDS = {
         venue: "North Harbour Stadium, Auckland", indoor: false,
         formHome: "LWLWL", formAway: "LWWLW",
         context: {
-          h2h: "Crusaders historically dominant against Moana Pasifika; Moana yet to beat Crusaders",
-          homeAdv: "Auckland crowd backs Moana but has never been enough to beat Crusaders",
-          weather: "Auckland autumn — mild, slight rain possible, manageable for both teams",
+          h2h: "Crusaders historically dominant against Moana; Moana yet to beat Crusaders",
+          homeAdv: "Auckland crowd backs Moana but has never been enough against Crusaders",
+          weather: "Auckland autumn — mild, slight rain possible, manageable for both",
           injuries: "Home: Augustine Pulu suspended 3 weeks, Julian Savea returns for first time in 2026. Away: all three specialist flyhalves injured, Cooper Grant moves to No.10; Tamaiti Williams still suspended",
-          standingsAndForm: "Crusaders mid-table, Moana struggling but improving. Crusaders $1.01 in market — monumental favourites",
-          pundits: "ESPN: Crusaders by 12. AusSportsBetting: Crusaders $1.01, line -25.5. Rugby365: Crusaders. Tab: Crusaders"
+          standingsAndForm: "Crusaders mid-table; Moana struggling. Crusaders $1.01 in market — monumental favourites",
+          pundits: "ESPN: Crusaders by 12. AusSportsBetting: Crusaders $1.01 line -25.5. Rugby365: Crusaders. Tab: Crusaders"
         }
       },
       {
@@ -266,65 +236,62 @@ const ROUNDS = {
         formHome: "WLLWL", formAway: "WWWWW",
         context: {
           h2h: "Blues 11-game winning streak vs Waratahs including 5 straight wins in Sydney; Blues covered line in last 5 away games",
-          homeAdv: "Waratahs unbeaten at Allianz Stadium in 2026, but Blues have been clinical away from home",
+          homeAdv: "Waratahs unbeaten at Allianz in 2026 but Blues have been clinical away",
           weather: "Warm Sydney late-summer evening — open, attacking game expected on fast surface",
           injuries: "Home: Joseph-Aukuso Suaalii out 8 weeks (hamstring), backline reshuffled again. Away: near full-strength, Beauden Barrett at No.10, Hoskins Sotutu and Papali'i lead pack",
           standingsAndForm: "Blues top 3 with 4 wins from 5; Waratahs inconsistent with 2 wins from 5",
-          pundits: "ESPN: Blues by 8. AusSportsBetting: Blues 1.44 fav, line -5.5. Rugby365: Blues. Tab: Blues"
+          pundits: "ESPN: Blues by 8. AusSportsBetting: Blues 1.44 fav line -5.5. Rugby365: Blues. Tab: Blues"
         }
       }
     ]
   },
-  7: {
+  {
+    num: 7,
     label: "Round 7",
     dates: "27–29 March 2026",
     firstKickoff: new Date("2026-03-27T07:05:00Z"),
+    lastKickoff:  new Date("2026-03-29T08:35:00Z"),
     byes: [],
     matches: []
   },
-  8: {
+  {
+    num: 8,
     label: "Round 8",
     dates: "3–5 April 2026",
     firstKickoff: new Date("2026-04-03T07:05:00Z"),
+    lastKickoff:  new Date("2026-04-05T08:35:00Z"),
     byes: ["Brumbies", "Blues", "Highlanders", "Hurricanes", "Moana Pasifika"],
     matches: []
   },
-  9: {
+  {
+    num: 9,
     label: "Round 9",
     dates: "10–12 April 2026",
     firstKickoff: new Date("2026-04-10T07:05:00Z"),
+    lastKickoff:  new Date("2026-04-12T08:35:00Z"),
     byes: [],
     matches: []
   },
-  10: {
+  {
+    num: 10,
     label: "Round 10",
     dates: "17–19 April 2026",
     firstKickoff: new Date("2026-04-17T07:05:00Z"),
+    lastKickoff:  new Date("2026-04-19T08:35:00Z"),
     byes: [],
     matches: []
   }
-};
+];
 
-// ─── State ───────────────────────────────────────────────────────────────────
-let currentWeek = 6;
-let countdownInterval = null;
-
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-function isUnlocked(round) {
-  const threshold = new Date(round.firstKickoff.getTime() - 120 * 60 * 60 * 1000);
-  return new Date() >= threshold;
+// ─── Auto-detect upcoming round ───────────────────────────────────────────────
+// Shows the first round whose last game + 3hr buffer hasn't passed yet.
+function getUpcomingRound() {
+  const now = new Date();
+  return ROUNDS.find(r => new Date(r.lastKickoff.getTime() + 3 * 60 * 60 * 1000) > now)
+    || ROUNDS[ROUNDS.length - 1];
 }
 
-function timeUntilUnlock(round) {
-  const threshold = new Date(round.firstKickoff.getTime() - 120 * 60 * 60 * 1000);
-  const diff = threshold - new Date();
-  if (diff <= 0) return "0h";
-  const d = Math.floor(diff / 864e5);
-  const h = Math.floor((diff % 864e5) / 36e5);
-  const m = Math.floor((diff % 36e5) / 6e4);
-  return d > 0 ? `${d}d ${h}h` : `${h}h ${m}m`;
-}
-
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 function formDots(str) {
   return (str || "").split("").slice(-5).map(c => {
     const bg = c === "W" ? "#1c6640" : c === "L" ? "#b83232" : "#c0bdb8";
@@ -332,15 +299,18 @@ function formDots(str) {
   }).join("");
 }
 
-function now() {
-  return new Date().toLocaleString("en-NZ", { timeZone: "Pacific/Auckland", dateStyle: "medium", timeStyle: "short" });
+function nowNZT() {
+  return new Date().toLocaleString("en-NZ", {
+    timeZone: "Pacific/Auckland",
+    dateStyle: "medium",
+    timeStyle: "short"
+  });
 }
 
 const refreshIcon = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8A5.5 5.5 0 1 1 10 3.07"/><polyline points="10 1 10 4 13 4"/></svg>`;
 
-// ─── API call via Vercel proxy ────────────────────────────────────────────────
-async function fetchPredictions(weekNum) {
-  const round = ROUNDS[weekNum];
+// ─── API call via Vercel serverless function ───────────────────────────────────
+async function fetchPredictions(round) {
   const payload = round.matches.map((m, i) => ({
     id: i,
     home: m.home,
@@ -360,7 +330,7 @@ async function fetchPredictions(weekNum) {
   const response = await fetch("/api/predict", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ matches: payload, roundNum: weekNum })
+    body: JSON.stringify({ matches: payload, roundNum: round.num })
   });
 
   if (!response.ok) {
@@ -372,33 +342,33 @@ async function fetchPredictions(weekNum) {
   return data.predictions;
 }
 
-// ─── Skeleton loader ─────────────────────────────────────────────────────────
+// ─── Skeleton loader ──────────────────────────────────────────────────────────
 function skeletonCards(count) {
   return Array.from({ length: count }, () => `
     <div class="skeleton-card">
-      <div class="skel" style="height:14px;width:40%;margin-bottom:16px"></div>
+      <div class="skel" style="height:13px;width:38%;margin-bottom:16px"></div>
       <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;margin-bottom:16px;align-items:center">
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-          <div class="skel" style="height:16px;width:80%"></div>
-          <div class="skel" style="height:10px;width:40%"></div>
+          <div class="skel" style="height:15px;width:75%"></div>
+          <div class="skel" style="height:9px;width:38%"></div>
         </div>
-        <div class="skel" style="height:12px;width:20px"></div>
+        <div class="skel" style="height:12px;width:18px"></div>
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-          <div class="skel" style="height:16px;width:80%"></div>
-          <div class="skel" style="height:10px;width:40%"></div>
+          <div class="skel" style="height:15px;width:75%"></div>
+          <div class="skel" style="height:9px;width:38%"></div>
         </div>
       </div>
       <div class="skel" style="height:44px;border-radius:10px;margin-bottom:10px"></div>
-      <div class="skel" style="height:40px;margin-bottom:10px"></div>
+      <div class="skel" style="height:36px;margin-bottom:10px"></div>
       <div style="display:flex;gap:6px">
-        <div class="skel" style="height:24px;width:90px;border-radius:100px"></div>
-        <div class="skel" style="height:24px;width:70px;border-radius:100px"></div>
-        <div class="skel" style="height:24px;width:110px;border-radius:100px"></div>
+        <div class="skel" style="height:22px;width:88px;border-radius:100px"></div>
+        <div class="skel" style="height:22px;width:68px;border-radius:100px"></div>
+        <div class="skel" style="height:22px;width:106px;border-radius:100px"></div>
       </div>
     </div>`).join("");
 }
 
-// ─── Renderers ────────────────────────────────────────────────────────────────
+// ─── Match card ───────────────────────────────────────────────────────────────
 function matchCard(m, pred) {
   const isComfort = pred.marginCategory === "comfortable";
   return `
@@ -446,97 +416,55 @@ function matchCard(m, pred) {
   </div>`;
 }
 
-function lockedCard(m) {
-  return `
-  <div class="locked-card">
-    <div class="card-meta">
-      <span class="meta-day">${m.day}</span>
-      <span class="meta-time">${m.time}</span>
-      <span class="meta-venue">${m.venue}</span>
-    </div>
-    <div class="locked-body">
-      <div class="locked-teams">
-        <span class="locked-team">${m.home}</span>
-        <span class="locked-vs">vs</span>
-        <span class="locked-team">${m.away}</span>
-      </div>
-      <div class="locked-bar">
-        <span class="lock-icon">🔒</span>
-        <span class="locked-msg">Prediction unlocks <strong>5 days before kick-off</strong></span>
-      </div>
-    </div>
-  </div>`;
-}
-
 // ─── Main render ──────────────────────────────────────────────────────────────
-async function renderRound(weekNum, forceRefresh = false) {
+async function render() {
   const main = document.getElementById("mainContent");
-  const round = ROUNDS[weekNum];
+  const round = getUpcomingRound();
 
-  if (!round) {
-    main.innerHTML = `<div class="placeholder"><strong>Round ${weekNum}</strong>Fixture data not yet available.</div>`;
-    return;
-  }
-
-  const unlocked = isUnlocked(round);
-
-  // No fixtures loaded for this round yet
+  // Fixtures not yet added for this round
   if (!round.matches.length) {
-    const wait = timeUntilUnlock(round);
     main.innerHTML = `
-      <div class="round-header"><h2>${round.label}</h2><span class="round-dates">${round.dates}</span></div>
+      <div class="round-header">
+        <h2>${round.label}</h2>
+        <span class="round-dates">${round.dates}</span>
+      </div>
       <div class="placeholder">
-        <strong>${unlocked ? "Fixtures pending" : "Not yet unlocked"}</strong>
-        ${unlocked
-          ? "Fixtures for this round haven't been published yet. Add them to the ROUNDS data object when the draw is confirmed."
-          : `Predictions unlock <strong>5 days before kick-off</strong>.<br>Time remaining: <strong>${wait}</strong>`}
-      </div>
-      ${round.byes.length ? `<div class="bye-row" style="margin-top:1rem">Bye: ${round.byes.join(", ")}</div>` : ""}`;
-    startCountdown(weekNum);
+        <strong>Fixtures not yet added</strong>
+        Once the ${round.label} draw and team news are confirmed, update the
+        matches data in <code>index.html</code> and push to GitHub — Vercel will redeploy automatically.
+        ${round.byes.length ? `<br><br>Bye this round: ${round.byes.join(", ")}` : ""}
+      </div>`;
     return;
   }
 
-  // Locked — show fixture shells
-  if (!unlocked) {
-    const wait = timeUntilUnlock(round);
-    main.innerHTML = `
-      <div class="round-header"><h2>${round.label}</h2><span class="round-dates">${round.dates}</span></div>
-      <div class="summary-strip">
-        <span class="stat-pill">Unlocks in <strong>${wait}</strong></span>
-        <span class="stat-pill"><strong>${round.matches.length}</strong> matches</span>
-      </div>
-      ${round.matches.map(lockedCard).join("")}
-      ${round.byes.length ? `<div class="bye-row">Bye: ${round.byes.join(", ")}</div>` : ""}`;
-    startCountdown(weekNum);
-    return;
-  }
-
-  // Unlocked — show skeleton then fetch
+  // Show skeleton while fetching
   main.innerHTML = `
-    <div class="round-header"><h2>${round.label}</h2><span class="round-dates">${round.dates}</span></div>
-    <div class="summary-strip">
-      <span class="stat-pill">Generating predictions…</span>
+    <div class="round-header">
+      <h2>${round.label}</h2>
+      <span class="round-dates">${round.dates}</span>
     </div>
+    <div class="summary-strip"><span class="stat-pill">Generating predictions…</span></div>
     ${skeletonCards(round.matches.length)}`;
 
   let predictions;
   try {
-    predictions = await fetchPredictions(weekNum);
+    predictions = await fetchPredictions(round);
   } catch (err) {
     main.innerHTML = `
-      <div class="round-header"><h2>${round.label}</h2><span class="round-dates">${round.dates}</span>
-        <button class="refresh-btn" onclick="renderRound(${weekNum}, true)">${refreshIcon} Retry</button>
+      <div class="round-header">
+        <h2>${round.label}</h2>
+        <span class="round-dates">${round.dates}</span>
+        <button class="refresh-btn" onclick="render()">${refreshIcon} Retry</button>
       </div>
       <div class="error-box">
         <strong>Could not generate predictions</strong>
-        ${err.message}. Check your Vercel deployment and that ANTHROPIC_API_KEY is set in your environment variables.
+        ${err.message}. Make sure ANTHROPIC_API_KEY is set in your Vercel environment variables and redeploy.
       </div>`;
     return;
   }
 
   const comfortCount = predictions.filter(p => p.marginCategory === "comfortable").length;
-  const closeCount = predictions.filter(p => p.marginCategory === "close").length;
-  const ts = now();
+  const closeCount   = predictions.filter(p => p.marginCategory === "close").length;
 
   let html = `
     <div class="round-header">
@@ -544,7 +472,7 @@ async function renderRound(weekNum, forceRefresh = false) {
       <span class="round-dates">${round.dates}</span>
       <button class="refresh-btn" id="refreshBtn">${refreshIcon} Refresh</button>
     </div>
-    <div class="generated-at">Generated ${ts} NZT — click Refresh to recalculate with latest data</div>
+    <div class="generated-at">Generated ${nowNZT()} NZT — refresh anytime for updated predictions</div>
     <div class="summary-strip">
       <span class="stat-pill"><strong>${round.matches.length}</strong> matches</span>
       <span class="stat-pill"><strong>${comfortCount}</strong> × 13+ pt wins</span>
@@ -556,43 +484,20 @@ async function renderRound(weekNum, forceRefresh = false) {
       <div class="leg"><div class="leg-dot" style="background:#1c6640"></div>Win&nbsp;<div class="leg-dot" style="background:#b83232"></div>Loss (last 5)</div>
     </div>`;
 
-  round.matches.forEach((m, i) => {
-    html += matchCard(m, predictions[i] || {});
-  });
-
+  round.matches.forEach((m, i) => { html += matchCard(m, predictions[i] || {}); });
   if (round.byes.length) html += `<div class="bye-row">Bye: ${round.byes.join(", ")}</div>`;
+
   main.innerHTML = html;
 
   document.getElementById("refreshBtn")?.addEventListener("click", async function () {
     this.disabled = true;
     this.classList.add("spinning");
     this.innerHTML = refreshIcon + " Refreshing…";
-    await renderRound(weekNum, true);
+    await render();
   });
 }
 
-function startCountdown(weekNum) {
-  if (countdownInterval) clearInterval(countdownInterval);
-  const round = ROUNDS[weekNum];
-  if (!round || isUnlocked(round)) return;
-  countdownInterval = setInterval(() => {
-    if (isUnlocked(round)) { clearInterval(countdownInterval); renderRound(weekNum); return; }
-    renderRound(weekNum);
-  }, 60000);
-}
-
-// ─── Nav ──────────────────────────────────────────────────────────────────────
-document.getElementById("weekNav").addEventListener("click", e => {
-  const btn = e.target.closest(".week-btn");
-  if (!btn) return;
-  if (countdownInterval) clearInterval(countdownInterval);
-  document.querySelectorAll(".week-btn").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-  currentWeek = parseInt(btn.dataset.week);
-  renderRound(currentWeek);
-});
-
-renderRound(6);
+render();
 </script>
 </body>
 </html>
